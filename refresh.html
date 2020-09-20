@@ -56,7 +56,7 @@
                 background-color: transparent;
                 transform: translate(-50%, 50%);
                 padding: 0;
-                border: ${size / 20}px solid rgb(59, 151, 59);
+                border: ${size / 20}px solid rgb(150, 150, 150);
             }
 
             div.refreshBtn {
@@ -180,6 +180,8 @@
         }
         btnEl.addEventListener('click', refresh);
         btnEl.addEventListener('mouseover', resizeHover)
+        btnEl.addEventListener('mouseout', resizeHoverOff)
+        buttonBgc.addEventListener('mouseover', resizeHover)
         buttonBgc.addEventListener('mouseout', resizeHoverOff)
         const ref = document.querySelector('script');
         ref.parentNode.insertBefore(style, ref);
