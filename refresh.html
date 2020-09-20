@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // ==UserScript==
+        // @name         auto-refresh
+        // @namespace    http://tampermonkey.net/
+        // @version      0.1
+        // @description  Fixed button that let's you autorefresh websites
+        // @author       Bart
+        // @match        https://fclm-portal.amazon.com/reports/functionRollup?reportFormat=HTML*
+        // ==/UserScript==
+
+        //settings
+        const size = 35;
+
+
+        //script
+        let refreshDelay = 5;
+        let buttonFlagOn = true;
+        const btnEL = document.createElement('div')
+        btnEL.textContent = refreshDelay;
+        btnEL.classList = 'refreshBtn';
+        document.body.appendChild(btnEL);
+        const btnRefresh = document.querySelector('div.refreshBtn')
+
+
+        const style = document.createElement('style');
+        style.innerHTML = `div.refreshBtn {
+                        position: fixed;
+                        top: 50px;
+                        right: 50px;
+                        box-sizing: border-box;
+                        background-color: rgb(177, 227, 177);
+                        color: rgb(59, 151, 59);
+                        font-family: arial;
+                        font-weight: 400;
+                        font-size: ${size * 0.5}px;
+                        line-height: ${size - size/20}px;
+                        text-align: center;
+                        height: ${size}px;
+                        width: ${size}px;
+                        border: ${size/20}px solid rgb(59, 151, 59);
+                        border-radius: 50%;
+                        cursor: pointer;
+                        opacity: 0.7;
+                    }
+                    div.refreshBtn.off {
+                        background-color: rgb(227, 177, 177);
+                        color: rgb(151, 59, 59);
+                        border-color: rgb(151, 59, 59);
+                    }`
+
+
+
+        const refreshOn = setTimeout(function () {
+            location.reload();
+        }, refreshDelay * 1000);
+
+        // const countdown = setInterval(() => {
+        //     btnRefresh.textContent = --refreshDelay;
+        // }, 1000);
+
+        function startRefresh() {
+            // countdown;
+            refreshOn;
+            btnRefresh.textContent = refreshDelay;
+        }
+
+        function stopRefresh() {
+            clearTimeout(refreshOn);
+            // clearInterval(countdown);
+            btnRefresh.textContent = 'R';
+        }
+
+        const refresh = function () {
+            buttonFlagOn = !buttonFlagOn;
+            if (buttonFlagOn) {
+                btnEL.classList.toggle('off');
+                startRefresh();
+            } else {
+                btnEL.classList.toggle('off');
+                stopRefresh();
+            }
+        }
+
+        startRefresh();
+
+        btnEL.addEventListener('click', refresh);
+        const ref = document.querySelector('script');
+        ref.parentNode.insertBefore(style, ref);
+    </script>
+</body>
+
+</html>
