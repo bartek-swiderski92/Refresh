@@ -47,8 +47,7 @@
         //style
         const style = document.createElement('style');
         style.innerHTML = `
-
-            div.bgc{
+            div.bgc {
                 position: fixed;
                 top: 50px;
                 right: 50px;
@@ -73,55 +72,47 @@
                 text-align: center;
                 border: ${size / 20}px solid rgb(59, 151, 59);
                 cursor: pointer;
-
-
-        }
-        div.bgc, div.refreshBtn {
-            box-sizing: content-box;
-            height: ${size}px;
-            width: ${size}px;
-            border-radius: 50%;
-            opacity: 0.7;
-            transition: .3s
-        }
-
-        div.refreshBtn.off {
-            background-color: rgb(227, 177, 177);
-            color: rgb(151, 59, 59);
-            border-color: rgb(151, 59, 59);
-        }
-        // div.refreshBtn:hover{
-        //     transform: scale(1.3);
-        // }
-
-        div.refreshBtn.active {
-            // top: 30%;
-        }
-        div.bgc.active {
-            top: 20px;
-            right: 0;
-            height: 100px;
-            width: 100px;
-            border-radius: 5px;
-            background-color: rgba( 230, 230, 230, 0.5)
-        }
-        input.time-input{
-            position: relative;
-            display: block;
-            left: 50%;
-            top: 80px;
-            transform:  scale(0);
-            width: 30px;
-            border-radius: 2px;
-            transition: translate(-50%, -50%) scale 2s;
             }
-        input.time-input.active{
-            transform: translate(-50%, -50%) scale(1);
-            left: 50%;
-            bottom: 80px;
-            // height: 1rem;
-        }
-        `
+            div.bgc, div.refreshBtn {
+                    box-sizing: content-box;
+                    height: ${size}px;
+                width: ${size}px;
+                border-radius: 50%;
+                opacity: 0.7;
+                transition: .3s
+            } 
+
+            div.refreshBtn.off {
+                background-color: rgb(227, 177, 177);
+                color: rgb(151, 59, 59);
+                border-color: rgb(151, 59, 59);
+            }
+
+            div.bgc.active {
+                top: 20px;
+                right: 0;
+                height: 100px;
+                width: 100px;
+                border-radius: 5px;
+                background-color: rgba( 230, 230, 230, 0.5)
+            }
+            input.time-input {
+                position: relative;
+                display: block;
+                left: 50%;
+                top: 80px;
+                transform: translate(-50%, -300%) scale(0);
+                width: 30px;
+                border-radius: 2px;
+                transition: .5s;
+                opacity: 0;
+            }
+            input.time-input.active{
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+                left: 50%;
+                bottom: 80px;
+            }`
 
         //script
         let refreshDelay = timeout;
