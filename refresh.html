@@ -37,7 +37,7 @@
         const btnEl = document.createElement('div')
         btnEl.textContent = timeout;
         btnEl.classList = 'refreshBtn';
-        buttonBgc.appendChild(btnEl);
+        document.body.appendChild(btnEl);
 
         //input
         const inputEl = document.createElement('input');
@@ -47,6 +47,7 @@
         //style
         const style = document.createElement('style');
         style.innerHTML = `
+
             div.bgc{
                 position: fixed;
                 top: 50px;
@@ -55,14 +56,14 @@
                 background-color: transparent;
                 transform: translate(-50%, 50%);
                 padding: 0;
-                border: solid 1px black;
+                border: ${size / 20}px solid rgb(59, 151, 59);
             }
 
             div.refreshBtn {
-                position: relative;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                position: fixed;
+                top: 50px;
+                right: 50px;
+                transform: translate(-50%, 50%);
                 background-color: rgb(177, 227, 177);
                 color: rgb(59, 151, 59);
                 font-family: arial;
@@ -94,30 +95,31 @@
         // }
 
         div.refreshBtn.active {
-            top: 30%;
+            // top: 30%;
         }
         div.bgc.active {
-            top: 0;
+            top: 20px;
             right: 0;
             height: 100px;
             width: 100px;
             border-radius: 5px;
-            background-color: #eee;
+            background-color: rgba( 230, 230, 230, 0.5)
         }
         input.time-input{
             position: relative;
             display: block;
-            left: 0;
-            top: 0;
-            transform: translate(-50%, -50%) scale(0);
+            left: 50%;
+            top: 80px;
+            transform:  scale(0);
             width: 30px;
             border-radius: 2px;
-            transition-delay: .2s
+            transition: translate(-50%, -50%) scale 2s;
             }
         input.time-input.active{
-            transform: scale(1) translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(1);
             left: 50%;
-            top: 20%;
+            bottom: 80px;
+            // height: 1rem;
         }
         `
 
@@ -177,7 +179,7 @@
 
         }
         btnEl.addEventListener('click', refresh);
-        buttonBgc.addEventListener('mouseover', resizeHover)
+        btnEl.addEventListener('mouseover', resizeHover)
         buttonBgc.addEventListener('mouseout', resizeHoverOff)
         const ref = document.querySelector('script');
         ref.parentNode.insertBefore(style, ref);
