@@ -119,6 +119,7 @@
         let buttonFlag = true;
         const btnRefresh = document.querySelector('div.refreshBtn')
         const timeInput = document.querySelector('input.time-input')
+        const buttonElements = [buttonBgc, btnRefresh, timeInput] //button elements array created for foreach function
 
 
         let countdown = null;
@@ -155,25 +156,37 @@
         }
 
         startRefresh();
-
         const resizeHover = function () {
-            buttonBgc.classList.add('active');
-            btnRefresh.classList.add('active');
-            timeInput.classList.add('active');
-
+            buttonElements.forEach(buttonElement => {
+                element.classList.add('active');
+            });
         }
 
         const resizeHoverOff = function () {
-            buttonBgc.classList.remove('active');
-            btnRefresh.classList.remove('active');
-            timeInput.classList.remove('active');
+            buttonElements.forEach(buttonElement => {
+                element.classList.remove('active');
+            });
 
         }
+
+        // const eventLiseners = function () {
+        //     buttonElements.forEach(buttonElement => {
+        //         element.addEventListener('mouseover', resizeHover)
+        //         element.addEventListener('mouseout', resizeHoverOff)
+
+        //     });
+        }
+
+        // eventLiseners();
         btnEl.addEventListener('click', refresh);
+
         btnEl.addEventListener('mouseover', resizeHover)
         btnEl.addEventListener('mouseout', resizeHoverOff)
         buttonBgc.addEventListener('mouseover', resizeHover)
         buttonBgc.addEventListener('mouseout', resizeHoverOff)
+
+
+        //style inject
         const ref = document.querySelector('script');
         ref.parentNode.insertBefore(style, ref);
     </script>
