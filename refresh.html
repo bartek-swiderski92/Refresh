@@ -21,7 +21,7 @@
 
         //settings
         const size = 50;
-        const timeout = 120;
+        // const timeout = 120;
 
 
 
@@ -35,15 +35,24 @@
         //button
         const buttonBgc = document.querySelector('div.bgc')
         const btnEl = document.createElement('div')
-        btnEl.textContent = timeout;
         btnEl.classList = 'refreshBtn';
         document.body.appendChild(btnEl);
 
         //input
         const inputEl = document.createElement('input');
-        inputEl.classList = 'time-input'
+        inputEl.classList = 'time-input';
         buttonBgc.appendChild(inputEl);
+        inputEl.value = localStorage.getItem('refreshTimeout') || 120;
+        let timeout = inputEl.value;
+        btnEl.textContent = timeout;
 
+        inputEl.addEventListener('change', function () {
+            console.log(inputEl.value);
+            timeout = inputEl.value;
+            localStorage.setItem('refreshTimeout', inputEl.value);
+            stopRefresh();
+            startRefresh();
+        });
         //style
         const style = document.createElement('style');
         style.innerHTML = `
@@ -117,9 +126,9 @@
         //script
         let refreshDelay = timeout;
         let buttonFlag = true;
-        const btnRefresh = document.querySelector('div.refreshBtn')
-        const timeInput = document.querySelector('input.time-input')
-        const buttonElements = [buttonBgc, btnRefresh, timeInput] //button elements array created for foreach function
+        const btnRefresh = document.querySelector('div.refreshBtn');
+        const timeInput = document.querySelector('input.time-input');
+        const buttonElements = [buttonBgc, btnRefresh, timeInput]; //button elements array created for foreach function
 
 
         let countdown = null;
@@ -127,6 +136,7 @@
 
 
         function startRefresh() {
+            timeout = inputEl.value;
             refreshDelay = timeout;
             btnRefresh.textContent = timeout;
             countdown = setInterval(() => {
@@ -178,10 +188,6 @@
 
         eventLiseners();
         btnEl.addEventListener('click', refresh);
-        // btnEl.addEventListener('mouseover', resizeHover)
-        // btnEl.addEventListener('mouseout', resizeHoverOff)
-        // buttonBgc.addEventListener('mouseover', resizeHover)
-        // buttonBgc.addEventListener('mouseout', resizeHoverOff)
 
 
         //style inject
