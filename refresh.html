@@ -156,34 +156,32 @@
         }
 
         startRefresh();
+
         const resizeHover = function () {
             buttonElements.forEach(buttonElement => {
-                element.classList.add('active');
+                buttonElement.classList.add('active');
             });
         }
 
         const resizeHoverOff = function () {
             buttonElements.forEach(buttonElement => {
-                element.classList.remove('active');
+                buttonElement.classList.remove('active');
             });
-
         }
 
-        // const eventLiseners = function () {
-        //     buttonElements.forEach(buttonElement => {
-        //         element.addEventListener('mouseover', resizeHover)
-        //         element.addEventListener('mouseout', resizeHoverOff)
-
-        //     });
+        const eventLiseners = function () {
+            buttonElements.forEach(buttonElement => {
+                buttonElement.addEventListener('mouseover', resizeHover);
+                buttonElement.addEventListener('mouseout', resizeHoverOff);
+            });
         }
 
-        // eventLiseners();
+        eventLiseners();
         btnEl.addEventListener('click', refresh);
-
-        btnEl.addEventListener('mouseover', resizeHover)
-        btnEl.addEventListener('mouseout', resizeHoverOff)
-        buttonBgc.addEventListener('mouseover', resizeHover)
-        buttonBgc.addEventListener('mouseout', resizeHoverOff)
+        // btnEl.addEventListener('mouseover', resizeHover)
+        // btnEl.addEventListener('mouseout', resizeHoverOff)
+        // buttonBgc.addEventListener('mouseover', resizeHover)
+        // buttonBgc.addEventListener('mouseout', resizeHoverOff)
 
 
         //style inject
