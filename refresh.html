@@ -8,22 +8,15 @@
 </head>
 
 <body>
-
     <script>
         // ==UserScript==
         // @name         auto-refresh
         // @namespace    http://tampermonkey.net/
-        // @version      0.1
+        // @version      0.3
         // @description  Fixed button, auto-refreshes websites in set delay
         // @author       Bartek
         // @match        https://fclm-portal.amazon.com/reports/functionRollup?reportFormat=HTML*
         // ==/UserScript==
-
-        //settings
-        const size = 50;
-        // const timeout = 120;
-
-
 
         //html
 
@@ -31,12 +24,12 @@
         const buttonBgcEl = document.createElement('div');
         buttonBgcEl.classList = 'bgc';
         document.body.appendChild(buttonBgcEl);
+        const buttonBgc = document.querySelector('div.bgc')
 
         //button
-        const buttonBgc = document.querySelector('div.bgc')
         const btnEl = document.createElement('div')
         btnEl.classList = 'refreshBtn';
-        document.body.appendChild(btnEl);
+        buttonBgc.appendChild(btnEl);
 
         //input
         const inputEl = document.createElement('input');
@@ -53,39 +46,38 @@
             stopRefresh();
             startRefresh();
         });
+
         //style
         const style = document.createElement('style');
         style.innerHTML = `
             div.bgc {
                 position: fixed;
-                top: 50px;
-                right: 50px;
+                top: 80px;
+                right: 80px;
                 box-sizing: border-box;
                 background-color: transparent;
-                transform: translate(-50%, 50%);
-                padding: 0;
-                border: ${size / 20}px solid rgb(150, 150, 150);
+                border: 1px solid rgb(150, 150, 150);
             }
 
             div.refreshBtn {
-                position: fixed;
-                top: 50px;
-                right: 50px;
-                transform: translate(-50%, 50%);
+                position: relative;
+                top: 0;
+                right: -50%;
+                transform: translate(-50%, -1px);
                 background-color: rgb(177, 227, 177);
                 color: rgb(59, 151, 59);
                 font-family: arial;
                 font-weight: 400;
-                font-size: ${size * 0.5}px;
-                line-height: ${size - size / 20}px;
+                font-size: 20px;
+                line-height: 38px;
                 text-align: center;
-                border: ${size / 20}px solid rgb(59, 151, 59);
+                border: 1px solid rgb(59, 151, 59);
                 cursor: pointer;
             }
             div.bgc, div.refreshBtn {
-                    box-sizing: content-box;
-                    height: ${size}px;
-                width: ${size}px;
+                box-sizing: content-box;
+                height: 40px;
+                width: 40px;
                 border-radius: 50%;
                 opacity: 0.7;
                 transition: .3s
@@ -97,11 +89,15 @@
                 border-color: rgb(151, 59, 59);
             }
 
+            div.bgc.active>div.refreshBtn {
+                top:5px;
+            }
+
             div.bgc.active {
-                top: 20px;
-                right: 0;
-                height: 100px;
-                width: 100px;
+                top: 75px;
+                right: 70px;
+                height: 90px;
+                width: 60px;
                 border-radius: 5px;
                 background-color: rgba( 230, 230, 230, 0.5)
             }
@@ -109,18 +105,17 @@
                 position: relative;
                 display: block;
                 left: 50%;
-                top: 80px;
+                bottom: 0;
                 transform: translate(-50%, -300%) scale(0);
                 width: 30px;
                 border-radius: 2px;
-                transition: .5s;
+                transition: .4s;
                 opacity: 0;
             }
             input.time-input.active{
-                transform: translate(-50%, -50%) scale(1);
+                transform: translate(-50%, 70%) scale(1);
                 opacity: 1;
                 left: 50%;
-                bottom: 80px;
             }`
 
         //script
@@ -157,7 +152,6 @@
         const refresh = function () {
             buttonFlag = !buttonFlag;
             btnEl.classList.toggle('off');
-
             if (buttonFlag) {
                 startRefresh();
             } else {
@@ -179,16 +173,15 @@
             });
         }
 
-        const eventLiseners = function () {
+        const eventListeners = function () {
             buttonElements.forEach(buttonElement => {
                 buttonElement.addEventListener('mouseover', resizeHover);
                 buttonElement.addEventListener('mouseout', resizeHoverOff);
             });
         }
 
-        eventLiseners();
+        eventListeners();
         btnEl.addEventListener('click', refresh);
-
 
         //style inject
         const ref = document.querySelector('script');
